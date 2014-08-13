@@ -2,7 +2,7 @@
 namespace Course\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-
+use Course\Service\CourseCategoryFacade;
 
 class CategoryController extends AbstractCustomController {
 	
@@ -12,7 +12,7 @@ class CategoryController extends AbstractCustomController {
 	 *
 	 * @param unknown_type $categoryFacade
 	 */
-	public function setCategoryFacade($categoryFacade){
+	public function setCategoryFacade(\Course\Service\CourseCategoryFacade $categoryFacade){
 		$this->categoryFacade = $categoryFacade;
 	}
 	
@@ -32,11 +32,14 @@ class CategoryController extends AbstractCustomController {
 	 * @see Zend\Mvc\Controller.AbstractActionController::indexAction()
 	 */
 	public function indexAction(){
-		if($this->getServiceLocator()){
-			$this->entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-		}
-		$this->categoryFacade->setEntityManager($this->entityManager);
-		$allCategories = $this->categoryFacade->findAll('Course\Entity\CourseCategory');
-		return new ViewModel(array('categories' => $allCategories));
+		
+		/* if(!$this->entityManager){
+ 			$this->entityManager = $this->settings();
+ 		} */
+ 		///$this->categoryFacade->setEntityManager($this->entityManager);
+ 		
+		
+ 		$allCategories = $this->categoryFacade->findAll('Course\Entity\CourseCategory'); 
+ 		return new ViewModel(array('categories' => $allCategories));
 	}
 }

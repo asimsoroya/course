@@ -1,5 +1,7 @@
 <?php
-	return array(
+	use Course\Service\CourseCategoryFacade;
+
+return array(
 			'view_manager' => array(
 					'template_path_stack' => array(
 						__DIR__ . '/../view',
@@ -13,6 +15,16 @@
 											'route' => '/course',
 											'defaults' => array(
 													'controller' => 'Course\Controller\Index',
+													'action' => 'index'
+											)
+									)
+							),
+							'categories' => array(
+									'type' => 'Zend\Mvc\Router\Http\Literal',
+									'options' => array(
+											'route' => '/categories',
+											'defaults' => array(
+													'controller' => 'Course\Controller\Category',
 													'action' => 'index'
 											)
 									)
@@ -56,49 +68,59 @@
 						'Course\Controller\Index' 
 							=> 'Course\Controller\IndexControllerFactory'		
 					),
-					'invokables' => array(
-						'Course\Controller\Category' 
-							=> 'Course\Controller\CategoryController'
-					),
+					
 			),
+			'service_manager' => array(
+					'services' => array(
+							'categoryfacade' => new Course\Service\CourseCategoryFacade()
+							)
+					),
 			'doctrine' => array(
-					'driver' => array(
-							'Entity_driver' => array(
-									'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
-									'cache' => 'array',
-									'paths' => array(__DIR__ . '/../src/Course/Entity')
-							),
-							'orm_default' => array(
-									'drivers' => array(
-											'Course\Entity' =>  'Entity_driver'
-									),
-							),
-					),
+				'driver' => array(
+						'Entity_driver' => array(
+							'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+							'cache' => 'array',
+							'paths' => array(__DIR__ . '/../src/Course/Entity')
+						),
+						'orm_default' => array(
+								'drivers' => array(
+										'Course\Entity' =>  'Entity_driver'
+								),
+						),
+				),
 			),
-			'di' => array(
+			'controller_plugins' => array(
+				'invokables' => array(
+					'settings' => 'Course\Controller\Plugins\Settings',
+				)
+			),
+			'di' => array( 
 				array(
 					'definition' => array(
 						'class' => array(
-								'Course\Service\GreetingService' => array(
-										'setLoggingService' => array(
-												'required' => true,
-												)
-								),
-								'Course\Service\CourseCategoryFacade' => array(
-										'setEntityManager' => array(
-												'required' => true,
+							'Course\Service\GreetingService' => array(
+									'setLoggingService' => array(
+											'required' => true,
 											)
-									)
+							),
+							'Course\Controller\Category'  => array(
+								'setCategoryFacade' => array(
+										'required' => true,
 								)
+							),
+							'Course\Service\CourseCategoryFacade' => array(
+									'setEntityManager' => array(
+											'required' => true,
+										)
+								)
+							)
 					),
 					'instance' => array(
 						'preferences' => array(
 								'Course\Service\LoggingServiceInterface' 
-									=> 'Course\Service\LoggingService',
-								'\Doctrine\ORM\EntityManager'
-									=> 'orm_default'
-							)
+									=> 'Course\Service\LoggingService', 
+							),
 					)
-		))		
+			))		
 	);
 	

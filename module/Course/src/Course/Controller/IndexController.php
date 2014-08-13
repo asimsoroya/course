@@ -33,11 +33,12 @@ class IndexController extends AbstractCustomController {
 	
 	public function indexAction(){
  		 print_r("Index controller");
- 		if($this->getServiceLocator()){
- 			$this->entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+  		if(!$this->entityManager){
+ 			$this->entityManager = $this->settings();
  		}
  		$this->categoryFacade->setEntityManager($this->entityManager);
  		$allCategories = $this->categoryFacade->findAll('Course\Entity\CourseCategory'); 
+ 		print_r($allCategories );
  		return new ViewModel(array('categories' => $allCategories));
 	}
 	
