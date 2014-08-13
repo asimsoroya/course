@@ -3,7 +3,16 @@ return array(
     // This should be an array of module namespaces used in the application.
     'modules' => array(
         'Application',
-    	'Album'
+    	//'Album',
+   		//'ZfcBase',
+    	'ZendSkeletonModule',
+    	'Helloworld'
+    	//'ZfcUser',
+    	//'BjyAuthorize' 
+    	,'TwbBundle',
+    	'DoctrineModule',
+    	'DoctrineORMModule',
+    	'Course',
     ),
 
     // These are various options for the listeners attached to the ModuleManager
@@ -58,7 +67,7 @@ return array(
     //         'method'          => $stringRequiredMethodName,
     //     ),
     // )
-
+     
    // Initial configuration with which to seed the ServiceManager.
    // Should be compatible with Zend\ServiceManager\Config.
    // 'service_manager' => array(),

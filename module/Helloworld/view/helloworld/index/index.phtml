@@ -1,0 +1,40 @@
+<?php
+
+$oForm = new \Zend\Form\Form();
+$oForm->add(array(
+		'name' => 'input-email',
+		'attributes' => array(
+				'type' => 'email',
+				'placeholder' => 'Enter email',
+				'id' => 'exampleInputEmail1'
+		),
+		'options' => array('label' => 'Email address')
+))->add(array(
+		'name' => 'input-password',
+		'attributes' => array(
+				'type' => 'password',
+				'placeholder' => 'Password',
+				'id' => 'exampleInputPassword1'
+		),
+		'options' => array('label' => 'Password',)
+))->add(array(
+		'name' => 'input-file',
+		'attributes' => array(
+				'type' => 'file',
+				'id' => 'exampleInputFile'
+		),
+		'options' => array(
+				'label' => 'File input',
+				'help-block' => 'Example block-level help text here.'
+		)
+))->add(array(
+		'name' => 'input-checkbox',
+		'type' => 'checkbox',
+		'options' => array('label' => 'Check me out')
+))->add(array(
+		'name' => 'button-submit',
+		'type' => 'button',
+		'attributes' => array('type' => 'submit'),
+		'options' => array('label' => 'Submit')
+)); 
+echo $this->form($oForm);

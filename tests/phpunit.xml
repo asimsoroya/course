@@ -1,0 +1,8 @@
+<phpunit bootstrap="./bootstrapdrv.php">
+<testsuites>
+ <testsuite name="AllTests">
+ 	<directory>./CourseTests/ServiceTest</directory>
+ 	<directory>./CourseTests/ControllerTest</directory>
+ </testsuite>
+ </testsuites>
+</phpunit>
