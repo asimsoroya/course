@@ -1,13 +1,15 @@
 <?php
 namespace Course\Controller;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Zend\View\Model\ViewModel;
 use Zend\Mvc\Controller\AbstractActionController;
 use Course\Service\CourseCategoryFacade;
 
 class CategoryController extends AbstractCustomController {
 	
 	private $categoryFacade; 
-	
+	const PAGE_SIZE = 10;
 	/**
 	 *
 	 * @param unknown_type $categoryFacade
@@ -36,10 +38,35 @@ class CategoryController extends AbstractCustomController {
 		/* if(!$this->entityManager){
  			$this->entityManager = $this->settings();
  		} */
- 		///$this->categoryFacade->setEntityManager($this->entityManager);
- 		
-		
- 		$allCategories = $this->categoryFacade->findAll('Course\Entity\CourseCategory'); 
- 		return new ViewModel(array('categories' => $allCategories));
+		$offset = 0;
+		$pageSize = self::PAGE_SIZE;
+		$key = "Te";
+		$params = $this->getEvent()->getRouteMatch()->getParams(); 
+		if(isset($params['key']))
+			$key = $params['key'];
+		if(isset($params['offset']))
+			$offset = $params['offset'];
+		if(isset($params['pageSize'])){
+			$pageSize =  $params['pageSize'];
+		}
+ 		$qb = $this->entityManager->createQueryBuilder();
+		$qb->select('cat')
+			->from('Course\Entity\CourseCategory', 'cat')
+			->orderBy('cat.name','ASC');
+		if ($key){
+			$qb->where(
+					$qb->expr()->like('cat.name', $qb->expr()->literal("%$key%"))
+				);
+		}
+		$query = $this->entityManager->createQuery($qb)
+			->setFirstResult($offset)
+			->setMaxResults($pageSize);
+		$paginator = new Paginator($query,false);
+		$c = count($paginator);
+		foreach ($paginator as $category) {
+			//echo $post->getHeadline() . "\n";
+			print_r($category);
+		}
+ 		return new ViewModel(array('categories' => $paginator));
 	}
 }

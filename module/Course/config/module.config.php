@@ -20,9 +20,14 @@ return array(
 									)
 							),
 							'categories' => array(
-									'type' => 'Zend\Mvc\Router\Http\Literal',
+									'type' => 'segment',
 									'options' => array(
-											'route' => '/categories',
+									'route' => '/categories[/:key][/:offset][/:pageSize]',
+											'constraints' => array(
+													'key' => '[a-zA-Z][a-zA-Z0-9_-]*',
+													'offset'     => '[0-9]+',
+													'pageSize'     => '[0-9]+',
+											), 
 											'defaults' => array(
 													'controller' => 'Course\Controller\Category',
 													'action' => 'index'

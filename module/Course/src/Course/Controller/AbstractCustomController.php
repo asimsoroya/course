@@ -5,7 +5,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 
 abstract class AbstractCustomController extends AbstractActionController {
 	protected  $entityManager;
-
+	
 	/**
 	 * 
 	 * @param unknown_type $entityManager

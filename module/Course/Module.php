@@ -21,20 +21,18 @@ class Module
 		return include __DIR__ . '/config/module.config.php';
 	}
 	/**
-	 * F
+	 * Adding dependencies to controller and its facade.
 	 */
 	public function getControllerConfig(){
-		print_r("GETTING CONTROLLER CONFIG");
+
 		return array(
 				'factories' => array(
 						//controller name as given in rout => config
-						'Course\Controller\Category' => function (ControllerManager $cm){
-								print_r("CONTROLLER CONFIG CALLED");
+						'Course\Controller\Category' => function (ControllerManager $cm){ 
 								$sm = $cm->getServiceLocator();
 								$courseFacade = $sm->get('categoryfacade');
 								$em = $sm->get('doctrine.entitymanager.orm_default');
-								$courseFacade->setEntityManager($em);
-								//$courseFacade->setEntityManager($em);
+								$courseFacade->setEntityManager($em); 
 								$ctr = new \Course\Controller\CategoryController();
 								$ctr->setCategoryFacade($courseFacade);
 								$ctr->setEntityManager($em);
