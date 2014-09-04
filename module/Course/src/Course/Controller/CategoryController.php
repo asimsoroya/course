@@ -40,7 +40,6 @@ class CategoryController extends AbstractCustomController {
  		} */
 		$offset = 0;
 		$pageSize = self::PAGE_SIZE;
-		$key = "Te";
 		$params = $this->getEvent()->getRouteMatch()->getParams(); 
 		if(isset($params['key']))
 			$key = $params['key'];
