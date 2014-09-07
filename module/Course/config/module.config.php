@@ -70,10 +70,9 @@ return array(
 			),
 			'controllers' => array(
 					'factories' => array(
-						'Course\Controller\Index' 
-							=> 'Course\Controller\IndexControllerFactory'		
-					),
-					
+						'Course\Controller\Category' 
+							=> 'Course\Controller\Factory\CategoryControllerFactory'		
+					),					
 			),
 			'service_manager' => array(
 					'services' => array(
@@ -113,11 +112,7 @@ return array(
 										'required' => true,
 								)
 							),
-							'Course\Service\CourseCategoryFacade' => array(
-									'setEntityManager' => array(
-											'required' => true,
-										)
-								)
+
 							)
 					),
 					'instance' => array(

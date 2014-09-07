@@ -33,11 +33,7 @@ class CategoryController extends AbstractCustomController {
 	 * (non-PHPdoc)
 	 * @see Zend\Mvc\Controller.AbstractActionController::indexAction()
 	 */
-	public function indexAction(){
-		
-		/* if(!$this->entityManager){
- 			$this->entityManager = $this->settings();
- 		} */
+	public function indexAction(){ 
 		$offset = 0;
 		$pageSize = self::PAGE_SIZE;
 		$params = $this->getEvent()->getRouteMatch()->getParams(); 
