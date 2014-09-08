@@ -4,6 +4,7 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 
 abstract class AbstractCustomController extends AbstractActionController {
+	
 	protected  $entityManager;
 	
 	/**

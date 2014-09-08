@@ -99,8 +99,11 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController',
+           // 'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Test' => 'Application\Controller\TestController'
+        ),
+        'factories' => array(
+	        'Application\Controller\Index' => 'Application\Controller\Factory\IndexControllerFactory'
         ),
     ),
     'view_manager' => array(

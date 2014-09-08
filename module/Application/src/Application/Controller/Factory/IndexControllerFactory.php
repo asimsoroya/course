@@ -1,8 +1,10 @@
 <?php
-namespace Application\Controller;
+
+namespace Application\Controller\Factory;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Application\Controller\IndexController;
 
 class IndexControllerFactory implements FactoryInterface
 {
@@ -11,12 +13,13 @@ class IndexControllerFactory implements FactoryInterface
 	 * @see Zend\ServiceManager.FactoryInterface::createService()
 	 */
 	public function createService(ServiceLocatorInterface $serviceLocator){
-		print_r("APPLICATION INDEX CONTROLLER ");
-		$controller = new IndexController();
-		$em = $serviceLocator->get('doctrine.entitymanager.orm_default');
-		$facade = $sm->get('categoryfacade');
-		$controller->setEntityManager($em);
-		$controller->setCategoryFacade($facade);
-	//	return $controller;
+		
+		$controller = new \Application\Controller\IndexController();
+		$em = $serviceLocator->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+		$di = new \Zend\Di\Di();
+		$courseFacade = $di->get('Course\Service\CourseCategoryFacade');
+		$courseFacade->setEntityManager($em);
+		$controller->setCategoryFacade($courseFacade);
+		return $controller;
 	}
 }

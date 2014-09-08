@@ -11,16 +11,34 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Application\Controller\AbstractCustomController;
 
-class IndexController extends AbstractActionController
+class IndexController extends AbstractCustomController
 {
+	
     public function indexAction()
     { 
+    	print_r("Index controller");
         return new ViewModel();
     }
 
     public function addAction()
     {
         return new ViewModel();
+    }
+    
+    /**
+     *
+     * @param unknown_type $categoryFacade
+     */
+    public function setCategoryFacade(\Course\Service\CourseCategoryFacade $categoryFacade){
+    	$this->categoryFacade = $categoryFacade;
+    }
+    
+    /**
+     *
+     */
+    public function getCategoryFacade(){
+    	return $this->categoryFacade;
     }
 }
