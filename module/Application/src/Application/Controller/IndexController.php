@@ -15,11 +15,16 @@ use Application\Controller\AbstractCustomController;
 
 class IndexController extends AbstractCustomController
 {
+	/**
+	 * 
+	 * @var \Course\Service\CourseCategoryFacade 
+	 */
+	protected $categoryFacade;
 	
     public function indexAction()
-    { 
-    	print_r("Index controller");
-        return new ViewModel();
+    {
+    	$categories = $this->categoryFacade->findAll();
+        return new ViewModel(array('categories' => $categories ));
     }
 
     public function addAction()

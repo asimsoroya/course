@@ -11,11 +11,7 @@ interface IFacade {
 	 */
 	public function find($repository,$id);
 	
-	/**
-	 * 
-	 * @param String $repository
-	 */
-	public function findAll($repository);
+	 
 	
 	/**
 	 * Flush entities to DB

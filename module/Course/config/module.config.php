@@ -34,6 +34,19 @@ return array(
 											)
 									)
 							),
+							'category' => array(
+									'type' => 'segment',
+									'options' => array(
+											'route' => '/category[/:id]',
+											'constraints' => array( 
+													'id'     => '[0-9]+', 
+											),
+											'defaults' => array(
+													'controller' => 'Course\Controller\Category',
+													'action' => 'list'
+											)
+									)
+							),
 							'course2' => array(
 									'type' => 'Zend\Mvc\Router\Http\Regex',
 									'options' => array(

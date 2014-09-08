@@ -1,6 +1,5 @@
 <?php
 namespace Course\Controller;
-
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Zend\View\Model\ViewModel;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -63,5 +62,9 @@ class CategoryController extends AbstractCustomController {
 			print_r($category);
 		}
  		return new ViewModel(array('categories' => $paginator));
+	}
+	
+	public function listAction(){
+		
 	}
 }

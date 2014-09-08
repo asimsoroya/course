@@ -8,12 +8,12 @@ use Application\Controller\IndexController;
 
 class IndexControllerFactory implements FactoryInterface
 {
+
 	/**
 	 * (non-PHPdoc)
 	 * @see Zend\ServiceManager.FactoryInterface::createService()
 	 */
-	public function createService(ServiceLocatorInterface $serviceLocator){
-		
+	public function createService(ServiceLocatorInterface $serviceLocator){		
 		$controller = new \Application\Controller\IndexController();
 		$em = $serviceLocator->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 		$di = new \Zend\Di\Di();
