@@ -52,7 +52,7 @@ class MPOTTraversalFacade extends AbstractFacade{
 		$qb = $this->entityManager->createQueryBuilder();
 		$qb->select('cat')
 			->from($repository, 'cat')
-			->orderBy('cat.name','ASC');
+			->orderBy('cat.left','ASC');
 		
 		$qb->where(
 			$qb->expr()->between('cat.left', $objElement->getLeft(), $objElement->getRight())
@@ -102,16 +102,34 @@ class MPOTTraversalFacade extends AbstractFacade{
 		$query = $this->entityManager->createQuery("Select cat  FROM ".$repository. 
 				" cat JOIN cat.parentCategory parent Where parent.id=".$objElement->getId());
 		return $query->getResult();
-/* 		//createQueryBuilder();
-		/* $qb->select('cat')
-			->from($repository, 'cat')
-			->orderBy('cat.name','ASC');		
-		$qb->where(
-			$qb->expr()->eq('cat.parentCategory.id', $objElement->getId())
-		); 
-		return $qb->getQuery()->getResult(); */
 	}
 	
+	/**
+	 * Gets hierarchical data
+	 * @param AbstractStructureEntity $objElement
+	 */
+	public function getTreeHierarchy(AbstractStructureEntity $objElement){
+
+		$right = array();
+		$result = $this->getSubTree($objElement);
+		foreach ($result as $row) {
+			$row->unsetParent();
+			$this->entityManager->detach($row);
+			if (count($right) > 0) {
+				while ($right[count($right)-1]->getRight() < $row->getRight()) {
+					array_pop($right);
+				}
+			}
+			echo "\n". str_repeat(' ', count($right)).$row->getName();
+			if (isset($right[count($right)-1])){
+				$right[count($right)-1]->addChild($row);
+			}
+			//pick $right[count($right)-1]->
+			//add its child ($row)
+			$right[] = $row;
+		}
+		print_r($result);
+	}
 	
 	/**
 	 * 

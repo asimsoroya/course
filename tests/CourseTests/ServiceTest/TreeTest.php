@@ -7,17 +7,20 @@ use tests\UTTestClass;
 
 class TreeTest extends \PHPUnit_Framework_TestCase {
 		protected $treeFacade;
+		protected $courseFacade;
 		
 		public function __construct(){
 			$this->treeFacade = new \Course\Service\MPOTTraversalFacade();//$di->get('Course\Service\MPOTTraversalFacade');
 			$this->treeFacade->setEntityManager(UTTestClass::$entityManager);
+			$this->courseFacade = new \Course\Service\CourseCategoryFacade();
+			$this->courseFacade->setEntityManager(UTTestClass::$entityManager);
 		}
 		
 		/**
 		 * phpunit --bootstrap tests/bootstrapdrv.php tests\CourseTests\ServiceTest\TreeTest
 		 * Testing Tree operations
 		 */
-		public function testTreeMethods(){
+		public function atestTreeMethods(){
 			$courseFacade = new \Course\Service\CourseCategoryFacade();
 			$courseFacade->setEntityManager(UTTestClass::$entityManager);
 			$root = new \Course\Entity\CourseCategory();
@@ -50,6 +53,11 @@ class TreeTest extends \PHPUnit_Framework_TestCase {
 					$this->assertEquals(16, $treeNode->getRight(),"Invalid right set");
 				}
 			}
+		}
+		
+		public function testDisplayTree() {
+			$root = $this->courseFacade->find('Course\Entity\CourseCategory', 1);
+			$this->treeFacade->getTreeHierarchy($root);
 		}
 
 		/**
