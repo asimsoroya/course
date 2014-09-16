@@ -1,6 +1,7 @@
 <?php
 	use Course\Service\CourseCategoryFacade;
-
+	use Course\Service\MPOTTraversalFacade;
+ 
 return array(
 			'view_manager' => array(
 					'template_path_stack' => array(
@@ -89,7 +90,8 @@ return array(
 			),
 			'service_manager' => array(
 					'services' => array(
-							'categoryfacade' => new Course\Service\CourseCategoryFacade()
+							'categoryfacade' => new Course\Service\CourseCategoryFacade(),
+							'treefacade' => new Course\Service\MPOTTraversalFacade()
 							)
 					),
 			'doctrine' => array(

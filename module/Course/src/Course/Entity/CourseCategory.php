@@ -10,8 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="course_category", indexes={@ORM\Index(name="ind_parent_category", columns={"parent_category"})})
  * @ORM\Entity
  */
-class CourseCategory
+class CourseCategory extends AbstractStructureEntity 
 {
+	
+	const ENTITY_REPOSITORY = 'Course\Entity\CourseCategory';
+	
     /**
      * @var integer
      *
@@ -38,40 +41,80 @@ class CourseCategory
     /**
      * @var integer
      *
-     * @ORM\Column(name="category_left", type="bigint", nullable=true)
+     * @ORM\Column(name="node_left", type="integer", nullable=true)
      */
-    private $categoryLeft;
+    private $left;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="category_right", type="bigint", nullable=true)
+     * @ORM\Column(name="node_right", type="integer", nullable=true)
      */
-    private $categoryRight;
+    private $right;
 
     /**
      * @var \Course\Entity\CourseCategory
      *
      * @ORM\ManyToOne(targetEntity="Course\Entity\CourseCategory")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="parent_category", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      * })
      */
     private $parentCategory;
-	
-    
 
+      
 
+    /**
+     *
+     * @param integer $left
+     * @return \Course\Entity\CourseCategory
+     */
+    public function setLeft($left){
+    	if($left == null){
+    		throw new Exception("Invalid parameter passed");
+    	}
+    	$this->left = $left;
+    	return $this;
+    }
+     
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
-        return $this->id;
+    	return $this->id;
     }
-
+     
+    /**
+     *
+     * @return integer
+     */
+    public function getLeft(){
+    	return $this->left;
+    }
+     
+    /**
+     *
+     * @param integer $right
+     */
+    public function setRight($right){
+    	if($right == null){
+    		throw new \Exception("Invalid parameter passed");
+    	}
+    	$this->right = $right;
+    	return $this;
+    }
+     
+    /**
+     *
+     *  @return integer
+     */
+    public function getRight(){
+    	return $this->right;
+    }
+ 
     /**
      * Set name
      *
@@ -81,7 +124,6 @@ class CourseCategory
     public function setName($name)
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -119,52 +161,6 @@ class CourseCategory
     }
 
     /**
-     * Set categoryLeft
-     *
-     * @param integer $categoryLeft
-     * @return CourseCategory
-     */
-    public function setCategoryLeft($categoryLeft)
-    {
-        $this->categoryLeft = $categoryLeft;
-
-        return $this;
-    }
-
-    /**
-     * Get categoryLeft
-     *
-     * @return integer 
-     */
-    public function getCategoryLeft()
-    {
-        return $this->categoryLeft;
-    }
-
-    /**
-     * Set categoryRight
-     *
-     * @param integer $categoryRight
-     * @return CourseCategory
-     */
-    public function setCategoryRight($categoryRight)
-    {
-        $this->categoryRight = $categoryRight;
-
-        return $this;
-    }
-
-    /**
-     * Get categoryRight
-     *
-     * @return integer 
-     */
-    public function getCategoryRight()
-    {
-        return $this->categoryRight;
-    }
-
-    /**
      * Set parentCategory
      *
      * @param \Course\Entity\CourseCategory $parentCategory
@@ -186,4 +182,18 @@ class CourseCategory
     {
         return $this->parentCategory;
     }
+    
+    /**
+     * @return \Course\Entity\CourseCategory 
+     */
+ 	public function getParent(){
+ 		return $this->getParentCategory();	
+ 	}
+ 	
+ 	/**
+ 	 * @return string
+ 	 */
+ 	public function getRepository(){
+ 		return self::ENTITY_REPOSITORY;
+ 	}
 }

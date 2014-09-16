@@ -1,10 +1,12 @@
 <?php
+
 namespace CourseTests\ControllerTest;
 
 use Zend\Mvc\MvcEvent;
 use Zend\http\Request;
 use Zend\Mvc\Router\Console\RouteMatch;
-use Course\Controller\IndexController;
+
+use Course\Controller\CategoryController;
 use tests\UTTestClass;
 
 class IndexControllerTest extends \PHPUnit_Framework_TestCase
@@ -15,7 +17,7 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
 	private $event;
 
 	public function setUp(){
-		$this->controller = new IndexController();
+		$this->controller = new CategoryController();
 		$this->request = new Request();
 		$this->routeMatch = new RouteMatch(array('controller' => 'Index'));
 		$this->event = new MvcEvent();
@@ -23,10 +25,7 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
 		$this->controller->setEvent($this->event);
 	}
 	
-	public function testIndexAction(){
-		 //print_r(TestBootstrap::$em);
-		//UTTestClass::$entityManager );
-		 
+	public function testIndexAction(){ 	 
 		$di = new \Zend\Di\Di();
 		$courseFacade = $di->get('Course\Service\CourseCategoryFacade');
 		if($courseFacade){
@@ -34,9 +33,11 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
 		}
 		$this->controller->setEntityManager(UTTestClass::$entityManager);
 		$this->routeMatch->setParam('action', 'index');
-	//	print_r($this->controller);
 		$response = $this->controller->dispatch($this->request);
 		$viewModelValues = $response->getVariables();
- 	 	print_r($viewModelValues['categories']);
+ 	 	foreach($viewModelValues['categories'] as $category ) {
+ 	 		print_r($category);
+ 	 		exit;
+ 	 	}
 	}
 }

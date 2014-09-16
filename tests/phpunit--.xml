@@ -1,4 +1,4 @@
-<phpunit bootstrap="bootstrapdrv.php">
+<phpunit bootstrap="./bootstrapdrv.php">
 <testsuites>
  <testsuite name="AllTests">
  	<directory>./CourseTests/ServiceTest</directory>

@@ -8,6 +8,8 @@ use Course\Service\CourseCategoryFacade;
 class CategoryController extends AbstractCustomController {
 	
 	private $categoryFacade; 
+	private $courseFacade;
+	
 	const PAGE_SIZE = 10;
 	/**
 	 *
@@ -32,8 +34,9 @@ class CategoryController extends AbstractCustomController {
 	 * (non-PHPdoc)
 	 * @see Zend\Mvc\Controller.AbstractActionController::indexAction()
 	 */
-	public function indexAction(){ 
+	public function indexAction(){
 		$offset = 0;
+		$key = null;
 		$pageSize = self::PAGE_SIZE;
 		$params = $this->getEvent()->getRouteMatch()->getParams(); 
 		if(isset($params['key']))
@@ -57,14 +60,11 @@ class CategoryController extends AbstractCustomController {
 			->setMaxResults($pageSize);
 		$paginator = new Paginator($query,false);
 		$c = count($paginator);
-		foreach ($paginator as $category) {
-			//echo $post->getHeadline() . "\n";
-			print_r($category);
-		}
  		return new ViewModel(array('categories' => $paginator));
 	}
-	
+ 
 	public function listAction(){
+		$id = $this->getParam('id');
 		
 	}
 }

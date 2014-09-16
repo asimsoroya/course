@@ -63,6 +63,17 @@ abstract class AbstractFacade implements ServiceLocatorAwareInterface, IFacade {
 		return $this->entityManager->getRepository($repository)->findAll();
 	}
 	
+	/**
+	 * 
+	 * @param unknown_type $entity
+	 */
+	public function persist($entity){
+		$this->entityManager->persist($entity);
+		$this->flush();
+		return $entity;
+	}
+	
+	
 	public function flush(){
 		$this->entityManager->flush();		
 	}

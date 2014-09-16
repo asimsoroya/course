@@ -17,5 +17,17 @@ abstract class AbstractCustomController extends AbstractActionController {
 	public function getEntityManager(){
 		return $this->entityManager;
 	}
+	
+	/**
+	 * Get param value
+	 * @param unknown_type $strName
+	 */
+	public function getParam($strName){
+		$params = $this->getEvent()->getRouteMatch()->getParams();
+		if(isset($params[$strName])){
+			return $params[$strName];
+		}
+		return null;
+	}
 }
 

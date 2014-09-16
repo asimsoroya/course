@@ -21,13 +21,14 @@
  
  	static public function go()
  	{
- 		print_r("BOOTSTRAP CALLED");
+ 
  		chdir(dirname(__DIR__));
  		include 'init_autoloader.php';
  		self::$config = include 'config/application.config.php';
  		Zend\Mvc\Application::init(self::$config);
  		self::$sm = self::getServiceManager(self::$config);
  		self::$em = self::getEntityManager(self::$sm);
+ 		
  	}
  
  	static public function getServiceManager($config)
@@ -42,8 +43,8 @@
  	{
  		return $serviceManager->get('doctrine.entitymanager.orm_default');
  	}
- } 
- 
+ }
+
  TestBootstrap::go();
  tests\UTTestClass::$entityManager = TestBootstrap::$em;
  tests\UTTestClass::$serviceManager = TestBootstrap::$sm;
