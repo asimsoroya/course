@@ -66,8 +66,9 @@ class CourseCategory extends AbstractStructureEntity
       
     
     public function addChild(CourseCategory $child) {
-    	$this->arrChildren [$child->getId()] = array('id' => $child->getId(), 
-    			'name' => $child->getName());
+    	$this->arrChildren[$child->getId()] = $child;
+    			/*	array('id' => $child->getId(), 
+    			'name' => $child->getName());*/
     }
     
     public function unsetParent(){

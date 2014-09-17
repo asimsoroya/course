@@ -112,7 +112,8 @@ class MPOTTraversalFacade extends AbstractFacade{
 
 		$right = array();
 		$result = $this->getSubTree($objElement);
-		foreach ($result as $row) {
+		$parent = null;
+		foreach ($result as &$row) {
 			$row->unsetParent();
 			$this->entityManager->detach($row);
 			if (count($right) > 0) {
@@ -120,15 +121,17 @@ class MPOTTraversalFacade extends AbstractFacade{
 					array_pop($right);
 				}
 			}
-			echo "\n". str_repeat(' ', count($right)).$row->getName();
+		//	"\n". str_repeat(' ', count($right)).$row->getName();
 			if (isset($right[count($right)-1])){
-				$right[count($right)-1]->addChild($row);
+				$parent = $right[count($right)-1]; 
+				$parent->addChild($row);
+				$parent = $row;
 			}
 			//pick $right[count($right)-1]->
 			//add its child ($row)
 			$right[] = $row;
 		}
-		print_r($result);
+		return $result[0];
 	}
 	
 	/**
