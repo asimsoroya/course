@@ -9,12 +9,11 @@
 					try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
 				</script>
 				<?php  
-
-				//var_dump($categories);
-				var_dump( $this->partial('partials/categoriesPartial.phtml' ,array(
+ 
+				echo  $this->partial('partials/categoriesPartial.phtml' ,array(
 						'categories' => $categories,
 						'message' => "THIS IS TEST MESSAGE"
-						)));
+						));
 				?>
 				 
 

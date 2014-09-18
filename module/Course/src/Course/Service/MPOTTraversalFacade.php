@@ -47,7 +47,7 @@ class MPOTTraversalFacade extends AbstractFacade{
 	public function getSubTree(AbstractStructureEntity $objElement){
 		$repository = $objElement->getRepository();
 		if (!$repository) {
-			throw new Exception("Invalid entity set it should be instance of AbstractStructureEntity");
+			throw new \Exception("Invalid entity set it should be instance of AbstractStructureEntity");
 		}
 		$qb = $this->entityManager->createQueryBuilder();
 		$qb->select('cat')
@@ -103,6 +103,19 @@ class MPOTTraversalFacade extends AbstractFacade{
 				" cat JOIN cat.parentCategory parent Where parent.id=".$objElement->getId());
 		return $query->getResult();
 	}
+
+	/**
+	 * Getting root node
+	 */
+	public function getRootNode($repository){
+		$this->_isValidRepository($repository);
+		$query = $this->entityManager->createQuery("Select cat FROM ".$repository.
+				" cat LEFT JOIN cat.parentCategory parent Where parent.id is NULL"); //print_r($query->getSQL());
+		$result = $query->getResult();
+		if ($result){
+			return $result[0];
+		}
+	}
 	
 	/**
 	 * Gets hierarchical data
@@ -131,7 +144,7 @@ class MPOTTraversalFacade extends AbstractFacade{
 			//add its child ($row)
 			$right[] = $row;
 		}
-		return $result[0];
+		return $result[0]->getChildren();
 	}
 	
 	/**

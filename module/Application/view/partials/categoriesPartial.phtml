@@ -8,6 +8,7 @@
 						<b class="arrow"></b>
 						<ul class="submenu">
 						<?php 
+
 						foreach ($this->categories as $key => $cagtegory) {  
 							if($key == 0) {
 								$open ="active open";
@@ -24,6 +25,58 @@
 								<b class="arrow"></b>
 							</li> 
 							<?php } ?>
+							<li class="hover hsub">
+								<a class="dropdown-toggle" href="#">
+									<i class="menu-icon fa fa-caret-right"></i>
+
+									Three Level Menu
+									<b class="arrow fa fa-angle-down"></b>
+								</a>
+
+								<b class="arrow"></b>
+
+								<ul class="submenu">
+									<li class="hover">
+										<a href="#">
+											<i class="menu-icon fa fa-leaf green"></i>
+											Item #1
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+
+									<li class="hover hsub">
+										<a class="dropdown-toggle" href="#">
+											<i class="menu-icon fa fa-pencil orange"></i>
+
+											4th level
+											<b class="arrow fa fa-angle-down"></b>
+										</a>
+
+										<b class="arrow"></b>
+
+										<ul class="submenu">
+											<li class="hover">
+												<a href="#">
+													<i class="menu-icon fa fa-plus purple"></i>
+													Add Product
+												</a>
+
+												<b class="arrow"></b>
+											</li>
+
+											<li class="hover">
+												<a href="#">
+													<i class="menu-icon fa fa-eye pink"></i>
+													View Products
+												</a>
+
+												<b class="arrow"></b>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
 						</ul>
 					</li> 				 
 				</ul><!-- /.nav-list -->

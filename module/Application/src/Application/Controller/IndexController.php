@@ -21,11 +21,13 @@ class IndexController extends AbstractCustomController
 	 */
 	protected $categoryFacade;
 	
+		
     public function indexAction()
     {
-    	$categories = $this->categoryFacade->findAll();
+    	$categories = $this->categoryFacade->getMainTree(); 
         return new ViewModel(array('categories' => $categories ));
     }
+    
 
     public function addAction()
     {

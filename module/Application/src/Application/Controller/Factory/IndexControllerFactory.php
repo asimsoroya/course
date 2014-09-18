@@ -18,6 +18,9 @@ class IndexControllerFactory implements FactoryInterface
 		$em = $serviceLocator->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 		$di = new \Zend\Di\Di();
 		$courseFacade = $di->get('Course\Service\CourseCategoryFacade');
+		$treeFacade = $di->get('Course\Service\MPOTTraversalFacade');
+		$treeFacade->setEntityManager($em);
+		$courseFacade->setTreeFacade($treeFacade);
 		$courseFacade->setEntityManager($em);
 		$controller->setCategoryFacade($courseFacade);
 		return $controller;

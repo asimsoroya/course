@@ -55,7 +55,7 @@ class CourseCategory extends AbstractStructureEntity
     /**
      * @var \Course\Entity\CourseCategory
      *
-     * @ORM\ManyToOne(targetEntity="Course\Entity\CourseCategory",fetch="LAZY")
+     * @ORM\ManyToOne(targetEntity="Course\Entity\CourseCategory",fetch="EXTRA_LAZY")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      * })
@@ -64,11 +64,12 @@ class CourseCategory extends AbstractStructureEntity
 	
     private $arrChildren = array();
       
-    
-    public function addChild(CourseCategory $child) {
+    /**
+     * (non-PHPdoc)
+     * @see Course\Entity.AbstractStructureEntity::addChild()
+     */
+    public function addChild(AbstractStructureEntity $child) {
     	$this->arrChildren[$child->getId()] = $child;
-    			/*	array('id' => $child->getId(), 
-    			'name' => $child->getName());*/
     }
     
     public function unsetParent(){
@@ -206,5 +207,9 @@ class CourseCategory extends AbstractStructureEntity
  	 */
  	public function getRepository(){
  		return self::ENTITY_REPOSITORY;
+ 	}
+ 	
+ 	public function getChildren(){
+ 		return $this->arrChildren;	
  	}
 }
